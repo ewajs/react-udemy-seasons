@@ -1,3 +1,4 @@
+import "./SeasonDisplay.css";
 import React from "react";
 
 const seasonConfig = {
@@ -12,6 +13,8 @@ const seasonConfig = {
 };
 
 const getSeason = (lat, month) => {
+  // For testing (location override is not working with Semantic UI CDN)
+  //return "summer";
   if (month > 2 && month < 9) {
     return lat > 0 ? "summer" : "winter";
   } else {
@@ -23,10 +26,10 @@ const SeasonDisplay = (props) => {
   const season = getSeason(props.lat, new Date().getMonth());
   const { text, iconName } = seasonConfig[season];
   return (
-    <div>
-      <i className={`${iconName} icon`}></i>
+    <div className={`season-display ${season}`}>
+      <i className={`icon-left massive ${iconName} icon`}></i>
       <h1>{text}</h1>
-      <i className={`${iconName} icon`}></i>
+      <i className={`icon-right massive ${iconName} icon`}></i>
     </div>
   );
 };
