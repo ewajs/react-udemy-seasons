@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import SeasonDisplay from "./SeasonDisplay";
 import Spinner from "./Spinner";
+import "./index.css";
 
 // Function Based Component
 // const App = () => {
@@ -42,7 +43,8 @@ class App extends React.Component {
     console.log("Updated");
   }
 
-  render() {
+  // Helper method to avoid conditionals in render method
+  renderContent() {
     if (this.state.errorMessage && !this.state.lat) {
       return <div>Error: {this.state.errorMessage}</div>;
     }
@@ -54,6 +56,17 @@ class App extends React.Component {
     if (!this.state.errorMessage && !this.state.lat) {
       return <Spinner message="Please accept location request" />;
     }
+  }
+
+  render() {
+    return (
+      <div>
+        <div className="ui attached message message-center">
+          <p>This will always be rendered</p>
+        </div>
+        {this.renderContent()}
+      </div>
+    );
   }
 }
 
