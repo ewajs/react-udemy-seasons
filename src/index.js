@@ -1,17 +1,34 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+// Function Based Component
+// const App = () => {
+//   window.navigator.geolocation.getCurrentPosition(
+//     (position) => console.log(position),
+//     (err) => console.log(err)
+//   );
+//   return <div>Hi there</div>;
+// };
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+// Class Based Component
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { lat: null };
+    window.navigator.geolocation.getCurrentPosition(
+      (position) => {
+        // Always use this.setState({ ... }) to update state
+        this.setState({ lat: position.coords.latitude });
+        // Never assign directly to the state property
+        // this.state.lat = position.coords.latitde;
+      },
+      (err) => console.log(err)
+    );
+  }
+
+  render() {
+    return <div>Latitude: {this.state.lat}</div>;
+  }
+}
+
+ReactDOM.render(<App />, document.querySelector("#root"));
