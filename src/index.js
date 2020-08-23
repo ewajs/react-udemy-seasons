@@ -14,7 +14,9 @@ import ReactDOM from "react-dom";
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { lat: null };
+    // Only for initialization you can assign values directly
+    // to the state property of the instantiated object.
+    this.state = { lat: null, errorMessage: "" };
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
         // Always use this.setState({ ... }) to update state
@@ -22,12 +24,24 @@ class App extends React.Component {
         // Never assign directly to the state property
         // this.state.lat = position.coords.latitde;
       },
-      (err) => console.log(err)
+      (err) => {
+        this.setState({ errorMessage: err.message });
+      }
     );
   }
 
   render() {
-    return <div>Latitude: {this.state.lat}</div>;
+    if (this.state.errorMessage && !this.state.lat) {
+      return <div>Error: {this.state.errorMessage}</div>;
+    }
+
+    if (!this.state.errorMessage && this.state.lat) {
+      return <div>Latitude: {this.state.lat}</div>;
+    }
+
+    if (!this.state.errorMessage && !this.state.lat) {
+      return <div>Loading...</div>;
+    }
   }
 }
 
