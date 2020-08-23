@@ -17,6 +17,9 @@ class App extends React.Component {
     // Only for initialization you can assign values directly
     // to the state property of the instantiated object.
     this.state = { lat: null, errorMessage: "" };
+  }
+
+  componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
       (position) => {
         // Always use this.setState({ ... }) to update state
@@ -28,10 +31,6 @@ class App extends React.Component {
         this.setState({ errorMessage: err.message });
       }
     );
-  }
-
-  componentDidMount() {
-    console.log("Mounted!");
   }
 
   componentDidUpdate() {
