@@ -12,12 +12,15 @@ import ReactDOM from "react-dom";
 
 // Class Based Component
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    // Only for initialization you can assign values directly
-    // to the state property of the instantiated object.
-    this.state = { lat: null, errorMessage: "" };
-  }
+  //   constructor(props) {
+  //     super(props);
+  //     // Only for initialization you can assign values directly
+  //     // to the state property of the instantiated object.
+  //     this.state = { lat: null, errorMessage: "" };
+  //   }
+
+  // Alternate state initialization w/o constructor
+  state = { lat: null, errorMessage: "" };
 
   componentDidMount() {
     window.navigator.geolocation.getCurrentPosition(
